@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        .box {
+            padding: 100px 0px;
+            width: 400px;
+            text-align: center;
+            background: #ddd;
+            margin: 20px;
+            display: inline-block;
+        }
+        .favorite{
+            background-color: aqua;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- we can dynamically output anything we want that is defined inside vueCreateapp object {}.  -->
+
+        {{ name }} - {{ age }} - {{ subject }}
+
+        <div style="display: flex; column-gap: 10px;">
+
+            <button v-on:click="age++">Increase age by 1</button>
+
+            <button v-on:click="age--">Decrease age by 1</button>
+
+            <button @click="updateTitle('The lord of the ring')">Update title</button>
+
+        </div>
+        ================================================================================
+
+        <h2>Mouse events and their type</h2>
+        <div>@ is a shortcut for v-on:</div>
+        
+        <div class="box" v-on:mouseOver="handleEvent">Mouse Over</div>
+        <!-- if you want to pass extra params then pass the $this as event & your own params -->
+        <div class="box" v-on:mouseLeave="handleEvent2($event, '5')">Mouse Leave</div>
+        <!-- if you dont pass the second parameter then you dont have to pass the 1st param -->
+        <div class="box" @dblclick="handleEvent2">Double Click</div>
+        <!-- to not the position of a mouse over a dom -->
+        <div class="box" @mousemove="showXYPosition">Position of x = {{ x }} - y = {{ y }}</div>
+
+        ================================================================================
+
+        <h2>Attribute Binding</h2>
+        <p>means dynamically assign data to html attribute </p>
+        <!-- : or v-bind: is used to dynamically assign data to html attribute -->
+        <a :href="googleLink" target="_blank">Open Google</a><br>
+
+        ================================================================================
+
+        <h2>For Loop & dynamically assigning the classes using :attribute-binding</h2>
+
+        <h4>All Books Original Data ............. when it changes, it will affect the computed data</h4>
+        <ul>
+            <!-- <li v-for="book in books" :class="book.isFavorite ? 'favorite' : '' "> -->
+                <!-- if the book.isFavorite is true then favorite class will be assigned to it -->
+            <li v-for="book in books" :class="{favorite : book.isFavorite}" @click="book.isFavorite = !book.isFavorite">
+                {{ book.title }} - {{ book.author }}
+            </li>
+        </ul>
+
+        <h4>Books which are favorite using computed properties.</h4>
+        <ul>
+            <li v-for="book in computedBooks">
+                {{ book.title }} - {{ book.author }}
+            </li>
+        </ul>
+
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>
